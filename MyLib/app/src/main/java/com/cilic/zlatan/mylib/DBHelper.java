@@ -60,7 +60,7 @@ public class DBHelper extends SQLiteOpenHelper {
         vrijednosti.put(BOOKS_COLUMN_TITLE, k.getNaziv());
         vrijednosti.put(BOOKS_COLUMN_AUTHOR, k.getAutor());
         vrijednosti.put(BOOKS_COLUMN_ISBN, k.getIsbn());
-        vrijednosti.put(BOOKS_COLUMN_DATE, k.getNaziv());
+        vrijednosti.put(BOOKS_COLUMN_DATE, k.getDatumObjave());
         vrijednosti.put(BOOKS_COLUMN_NO_OF_PAGES, k.getBrojStranica());
         vrijednosti.put(BOOKS_COLUMN_DESCRIPTION, k.getOpis());
         vrijednosti.put(BOOKS_COLUMN_STATUS, k.getStatus());

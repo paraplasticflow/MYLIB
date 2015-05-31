@@ -17,7 +17,7 @@ import java.util.List;
 
 import android.database.sqlite.*;
 public class MainActivity extends ActionBarActivity {
-    ArrayList<String> primjerListe = new ArrayList<String>();
+    ArrayList<Knjiga> primjerListe = new ArrayList<Knjiga>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +65,14 @@ public class MainActivity extends ActionBarActivity {
         //k.setNaziv("Kemina noA");
         //db.promjeniKnjigu(k);
         //db.obrisiKnjigu(k);
-        List<Knjiga> sveKnjige = db.vratiSveKnjige();
+        List<Knjiga> primjerListe =  db.vratiSveKnjige();
 
-        for(Knjiga k1 : sveKnjige) {
+        /*for(Knjiga k1 : sveKnjige) {
             primjerListe.add(k1.getNaziv());
-        }
+        }*/
         //primjerListe.add(String.valueOf(db.dajBrojKnjiga()));
         ListView lw = (ListView) findViewById(R.id.book_list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, primjerListe);
+        ArrayAdapter<Knjiga> adapter = new ArrayAdapter<Knjiga>(this, android.R.layout.simple_list_item_1, primjerListe);
         lw.setAdapter(adapter);
     }
 

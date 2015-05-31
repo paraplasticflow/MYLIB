@@ -51,15 +51,29 @@
                 android:layout_marginTop="10dp"
                 android:singleLine="true"/>
 
-            <EditText
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:id="@+id/datumET"
-                android:layout_gravity="center_horizontal"
-                android:hint="@string/datum_hint"
-                android:layout_marginTop="10dp"/>
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose status"
+                    android:id="@+id/textView2"
+                    android:textSize="18.6dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"/>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"/>
+            </LinearLayout>
 
             <EditText
                 android:layout_width="match_parent"
@@ -75,17 +89,24 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:ems="10"
-                android:id="@+id/editText"
+                android:id="@+id/opisET"
                 android:layout_weight="0.25"
                 android:hint="@string/description_hint"/>
 
-            <EditText
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/statusET"
-                android:hint="@string/status_hint"
+                android:text="Pick book release date"
+                android:id="@+id/textView"
                 android:layout_marginTop="10dp"
-                android:singleLine="true"/>
+                android:layout_marginLeft="4dp"
+                android:textSize="18.6dp"/>
+
+            <DatePicker
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:id="@+id/datumDP"
+                android:calendarViewShown="false"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -106,8 +127,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Add Book"
-                    android:id="@+id/button"
-                    android:layout_weight="0.5" />
+                    android:id="@+id/addBookBT"
+                    android:layout_weight="0.5"
+                    android:onClick="dodajKnjigu"/>
             </LinearLayout>
 
 
@@ -115,4 +137,5 @@
 
 
     </ScrollView>
+
 </RelativeLayout>

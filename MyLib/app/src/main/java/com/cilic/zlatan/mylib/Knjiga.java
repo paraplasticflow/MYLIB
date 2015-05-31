@@ -78,4 +78,9 @@ public class Knjiga {
     public void setAutor(String autor) {
         this.autor = autor;
     }
+
+    @Override
+    public String toString() {
+        return getNaziv();
+    }
 }
