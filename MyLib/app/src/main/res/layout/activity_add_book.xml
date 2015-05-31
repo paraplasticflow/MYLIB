@@ -1,0 +1,118 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="fill"
+            android:orientation="vertical"
+            android:id="@+id/info_layout"
+            android:weightSum="1">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nazivET"
+                android:hint="@string/naziv_hint"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/autorET"
+                android:hint="@string/autor_hint"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/isbnET"
+                android:hint="@string/isbn_hint"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/datumET"
+                android:layout_gravity="center_horizontal"
+                android:hint="@string/datum_hint"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/brojStrET"
+                android:layout_marginTop="10dp"
+                android:hint="@string/number_of_pages_hint"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/editText"
+                android:layout_weight="0.25"
+                android:hint="@string/description_hint"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/statusET"
+                android:hint="@string/status_hint"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.29"
+                android:weightSum="1">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Search by ISBN"
+                    android:id="@+id/searchIsbnBT"
+                    android:layout_weight="0.5" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Add Book"
+                    android:id="@+id/button"
+                    android:layout_weight="0.5" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</RelativeLayout>

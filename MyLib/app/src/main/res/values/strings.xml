@@ -6,4 +6,13 @@
     <string name="action_add">Add</string>
     <string name="action_search">Search</string>
     <string name="action_scan">Scan</string>
+    <string name="title_activity_add_book">Add Book</string>
+    <string name="naziv_hint">Add book title</string>
+    <string name="button_send">Send</string>
+    <string name="autor_hint">Add book author(s)</string>
+    <string name="isbn_hint">Add book ISBN</string>
+    <string name="description_hint">Add book description</string>
+    <string name="number_of_pages_hint">Add number of pages in book</string>
+    <string name="status_hint">Add book status</string>
+    <string name="datum_hint">Add book release date</string>
 </resources>

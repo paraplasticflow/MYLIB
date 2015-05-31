@@ -1,12 +1,14 @@
 package com.cilic.zlatan.mylib;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -91,10 +93,16 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
+            openAddActivity();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openAddActivity() {
+        Intent intent = new Intent(this, AddBookActivity.class);
+        startActivity(intent);
     }
 }
