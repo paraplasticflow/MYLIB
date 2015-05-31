@@ -15,4 +15,5 @@
     <string name="number_of_pages_hint">Add number of pages in book</string>
     <string name="status_hint">Add book status</string>
     <string name="datum_hint">Add book release date</string>
+    <string name="title_activity_change_erase_book">Change/Erase Book</string>
 </resources>

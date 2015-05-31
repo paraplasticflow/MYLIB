@@ -29,8 +29,8 @@ public class AddBookActivity extends ActionBarActivity {
         final String[] str={"Read","Not read","Currently reading"};
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, str);
         spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-        Spinner spinYear = (Spinner)findViewById(R.id.spinner);
-        spinYear.setAdapter(spinnerArrayAdapter);
+        Spinner spinDate = (Spinner)findViewById(R.id.spinner);
+        spinDate.setAdapter(spinnerArrayAdapter);
     }
 
     @Override
@@ -143,7 +143,6 @@ public class AddBookActivity extends ActionBarActivity {
     }
 
     private Boolean isValidIsbn(String isbn) {
-        //String regexISBN = "^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$";
         Pattern pattern = Pattern.compile("(\\d-?){13}");
         Matcher matcher = pattern.matcher(isbn);
         return matcher.matches();

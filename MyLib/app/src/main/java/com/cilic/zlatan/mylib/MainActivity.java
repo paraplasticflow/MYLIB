@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -17,6 +18,8 @@ import java.util.List;
 
 import android.database.sqlite.*;
 public class MainActivity extends ActionBarActivity {
+    public final static String EXTRA_MESSAGE = "com.cilic.zlatan.mylib.MESSAGE";
+
     ArrayList<Knjiga> primjerListe = new ArrayList<Knjiga>();
 
     @Override
@@ -74,6 +77,19 @@ public class MainActivity extends ActionBarActivity {
         ListView lw = (ListView) findViewById(R.id.book_list);
         ArrayAdapter<Knjiga> adapter = new ArrayAdapter<Knjiga>(this, android.R.layout.simple_list_item_1, primjerListe);
         lw.setAdapter(adapter);
+
+
+        lw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Knjiga k = (Knjiga) parent.getItemAtPosition(position);
+                Integer idKnjige = k.getId();
+                Intent intent = new Intent(MainActivity.this, ChangeEraseBook.class);
+                String message = String.valueOf(idKnjige);
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
