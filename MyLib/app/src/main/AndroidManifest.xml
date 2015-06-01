@@ -32,6 +32,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cilic.zlatan.mylib.MainActivity" />
         </activity>
+        <activity
+            android:name=".SearchBookActivity"
+            android:label="@string/title_activity_search_book"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cilic.zlatan.mylib.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

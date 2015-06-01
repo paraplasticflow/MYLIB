@@ -16,4 +16,6 @@
     <string name="status_hint">Add book status</string>
     <string name="datum_hint">Add book release date</string>
     <string name="title_activity_change_erase_book">Change/Erase Book</string>
+    <string name="title_activity_search_book">Search</string>7
+    <string name="search_hint">Enter book title</string>
 </resources>

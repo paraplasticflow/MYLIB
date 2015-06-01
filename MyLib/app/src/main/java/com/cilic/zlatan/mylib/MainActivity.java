@@ -20,7 +20,7 @@ import android.database.sqlite.*;
 public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "com.cilic.zlatan.mylib.MESSAGE";
 
-    ArrayList<Knjiga> primjerListe = new ArrayList<Knjiga>();
+    //ArrayList<Knjiga> primjerListe = new ArrayList<Knjiga>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,11 +114,21 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
 
+        if(id == R.id.action_search) {
+            openSearchActivity();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
     public void openAddActivity() {
         Intent intent = new Intent(this, AddBookActivity.class);
+        startActivity(intent);
+    }
+
+    public void openSearchActivity() {
+        Intent intent = new Intent(this, SearchBookActivity.class);
         startActivity(intent);
     }
 }
