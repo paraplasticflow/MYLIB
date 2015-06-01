@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -29,6 +32,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "com.cilic.zlatan.mylib.MESSAGE";
+    public final static String ISBN_EXTRA = "com.cilic.zlatan.mylib.ISBN";
 
     //ArrayList<Knjiga> primjerListe = new ArrayList<Knjiga>();
 
@@ -87,7 +91,6 @@ public class MainActivity extends ActionBarActivity {
         ListView lw = (ListView) findViewById(R.id.book_list);
         ArrayAdapter<Knjiga> adapter = new ArrayAdapter<Knjiga>(this, android.R.layout.simple_list_item_1, primjerListe);
         lw.setAdapter(adapter);
-
 
         lw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -159,10 +162,11 @@ public class MainActivity extends ActionBarActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     // Parsing bar code reader result
                     IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-                    new AlertDialog.Builder(this)
-                            .setMessage(String.valueOf(result.getContents()))
-                            .show();
+                    String message = String.valueOf(result.getContents());
 
+                    Intent intent_isbn = new Intent(MainActivity.this, AddBookActivity.class);
+                    intent_isbn.putExtra(ISBN_EXTRA, message);
+                    startActivity(intent_isbn);
 
                 }
                 break;

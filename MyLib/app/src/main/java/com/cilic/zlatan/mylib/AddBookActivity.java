@@ -1,8 +1,11 @@
 package com.cilic.zlatan.mylib;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -31,6 +34,17 @@ public class AddBookActivity extends ActionBarActivity {
         spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         Spinner spinDate = (Spinner)findViewById(R.id.spinner);
         spinDate.setAdapter(spinnerArrayAdapter);
+
+        if(intent.getExtras() != null) {
+            if (intent.getExtras().containsKey(MainActivity.ISBN_EXTRA)) {
+                if(hasConnection()) {
+
+                    String message = intent.getStringExtra(MainActivity.ISBN_EXTRA);
+                    EditText isbnET = (EditText) findViewById(R.id.isbnET);
+                    isbnET.setText(message);
+                }
+            }
+        }
     }
 
     @Override
@@ -146,5 +160,15 @@ public class AddBookActivity extends ActionBarActivity {
         Pattern pattern = Pattern.compile("(\\d-?){13}");
         Matcher matcher = pattern.matcher(isbn);
         return matcher.matches();
+    }
+
+    private Boolean hasConnection() {
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
