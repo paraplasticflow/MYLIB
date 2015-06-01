@@ -152,7 +152,7 @@ public class ChangeEraseBook extends ActionBarActivity {
                             NavUtils.navigateUpFromSameTask(vanjski);
                         }
                     })
-                    .setIcon(R.drawable.ic_action_done)
+                    .setIcon(R.drawable.ic_action_delete)
                     .show();
 
     }

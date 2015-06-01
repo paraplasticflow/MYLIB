@@ -1,7 +1,12 @@
 package com.cilic.zlatan.mylib;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,10 +18,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import android.database.sqlite.*;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "com.cilic.zlatan.mylib.MESSAGE";
 
@@ -119,6 +129,10 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
 
+        if(id == R.id.action_scan) {
+            openScanActivity();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -130,5 +144,28 @@ public class MainActivity extends ActionBarActivity {
     public void openSearchActivity() {
         Intent intent = new Intent(this, SearchBookActivity.class);
         startActivity(intent);
+    }
+
+    public void openScanActivity() {
+        IntentIntegrator.initiateScan(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        switch (requestCode) {
+            case IntentIntegrator.REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    // Parsing bar code reader result
+                    IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+                    new AlertDialog.Builder(this)
+                            .setMessage(String.valueOf(result.getContents()))
+                            .show();
+
+
+                }
+                break;
+        }
     }
 }
