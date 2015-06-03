@@ -67,7 +67,7 @@ public class AddBookActivity extends ActionBarActivity {
                 if(hasConnection()) {
 
                         try {
-                            String s = new DataFetch().execute("http://isbndb.com/api/v2/json/KNFF96KR/book/9788674365021").get();
+                            String s = new DataFetch().execute("http://isbndb.com/api/v2/json/KNFF96KR/book/" + message).get();
 
                             parseAndSet(s);
 
@@ -83,14 +83,59 @@ public class AddBookActivity extends ActionBarActivity {
 
     private void parseAndSet(String s) {
         try {
-            JSONObject podaci = new JSONObject(s);
-            JSONArray data = podaci.getJSONArray("data");
-            JSONObject praviPodaci = data.getJSONObject(0);
-            String title = praviPodaci.getString("title");
 
-            EditText abc = (EditText) findViewById(R.id.nazivET);
-            abc.setText(title);
+            JSONObject response = new JSONObject(s);
+            if(!response.has("error")) {
+                JSONArray arrayData = response.getJSONArray("data");
+                JSONObject allData = arrayData.getJSONObject(0);
+                String title = allData.getString("title");
 
+                EditText titleET = (EditText) findViewById(R.id.nazivET);
+                titleET.setText(title);
+
+                JSONArray authorArrayData = allData.getJSONArray("author_data");
+                JSONObject authorData = authorArrayData.getJSONObject(0);
+                String authorName = authorData.getString("name");
+
+                EditText authorET = (EditText) findViewById(R.id.autorET);
+                authorET.setText(authorName);
+
+                String description = allData.getString("summary");
+                if (description.length() > 500) {
+                    description = description.substring(0, 499);
+                }
+
+                EditText descriptionET = (EditText) findViewById(R.id.opisET);
+                descriptionET.setText(description);
+
+
+                int day = 1;
+                int month = 1;
+                int year = 2000;
+                String publishingInfo = allData.getString("publisher_text");
+                if (publishingInfo != "") {
+                    String numberOnly = publishingInfo.replaceAll("[^0-9]", "");
+                    if (numberOnly.length() == 4) {
+                        year = Integer.parseInt(numberOnly);
+                        DatePicker dp = (DatePicker) findViewById(R.id.datumDP);
+                        dp.updateDate(year, month - 1, day);
+                    }
+                }
+
+                String isbn = allData.getString("isbn13");
+                EditText isbnET = (EditText) findViewById(R.id.isbnET);
+                isbnET.setText(isbn);
+            }
+            else {
+                new AlertDialog.Builder(this)
+                        .setTitle("Error")
+                        .setMessage("Unfortunately, we cannot find that book.")
+                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
+            }
 
 
         }
