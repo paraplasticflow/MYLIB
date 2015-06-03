@@ -23,6 +23,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cilic.zlatan.mylib.MainActivity" />
+
         </activity>
         <activity
             android:name=".ChangeEraseBook"
@@ -40,6 +41,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cilic.zlatan.mylib.MainActivity" />
         </activity>
+
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

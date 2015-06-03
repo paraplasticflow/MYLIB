@@ -6,9 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +19,29 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 
 
 public class AddBookActivity extends ActionBarActivity {
@@ -37,14 +60,77 @@ public class AddBookActivity extends ActionBarActivity {
 
         if(intent.getExtras() != null) {
             if (intent.getExtras().containsKey(MainActivity.ISBN_EXTRA)) {
+                String message = intent.getStringExtra(MainActivity.ISBN_EXTRA);
+                EditText isbnET = (EditText) findViewById(R.id.isbnET);
+                isbnET.setText(message);
+
                 if(hasConnection()) {
 
-                    String message = intent.getStringExtra(MainActivity.ISBN_EXTRA);
-                    EditText isbnET = (EditText) findViewById(R.id.isbnET);
-                    isbnET.setText(message);
+                        try {
+                            String s = new DataFetch().execute("http://isbndb.com/api/v2/json/KNFF96KR/book/9788674365021").get();
+
+                            parseAndSet(s);
+
+                        }
+                        catch(Exception e) {
+                        Log.d("error: ", e.getMessage());
+                    }
+
                 }
             }
         }
+    }
+
+    private void parseAndSet(String s) {
+        try {
+            JSONObject podaci = new JSONObject(s);
+            JSONArray data = podaci.getJSONArray("data");
+            JSONObject praviPodaci = data.getJSONObject(0);
+            String title = praviPodaci.getString("title");
+
+            EditText abc = (EditText) findViewById(R.id.nazivET);
+            abc.setText(title);
+
+
+
+        }
+        catch (JSONException j) {
+            Log.d("JSON error: ", j.getMessage());
+        }
+    }
+
+    private class DataFetch extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            InputStream io = null;
+            String result = "";
+            try {
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpResponse httpResponse = httpClient.execute(new HttpGet(urls[0]));
+                io = httpResponse.getEntity().getContent();
+                if(io != null) {
+                    result = inputStreamToString(io);
+                }
+                else {
+                    result = "Error fetching data";
+                }
+            }
+            catch(Exception e) {
+                Log.d("IO: ", e.getMessage());
+            }
+            return result;
+        }
+    }
+
+    private String inputStreamToString(InputStream io) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(io));
+        String line = "";
+        String result = "";
+        while((line = br.readLine()) != null) {
+            result += line;
+        }
+        io.close();
+        return  result;
     }
 
     @Override
@@ -171,4 +257,6 @@ public class AddBookActivity extends ActionBarActivity {
             return false;
         }
     }
+
+
 }
